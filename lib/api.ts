@@ -32,8 +32,9 @@ export const fetchArticles = async (options?: {
   category?: string;
   page?: number;
   limit?: number;
+  format?: string;
 }) => {
-  const { query, search, category, page, limit } = options || {};
+  const { query, search, category, page, limit, format } = options || {};
   const _query = {
     ...(query || {}),
   };
@@ -53,6 +54,9 @@ export const fetchArticles = async (options?: {
   }
   if (category) {
     _query.categories = category;
+  }
+  if (format === "text") {
+    _query.body = { fmt: "text" };
   }
   const _page = page || 1;
   const _limit = limit || Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10;

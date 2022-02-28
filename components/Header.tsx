@@ -1,16 +1,27 @@
 import { AppMeta } from "newt-client-js";
 import Link from "next/link";
-import { useCallback, useRef } from "react";
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "../styles/Header.module.css";
 
 export function Header({ app }: { app: AppMeta }): JSX.Element {
+  const router = useRouter();
+  const { q } = router.query;
   const searchRef = useRef<HTMLInputElement>();
+
+  const [searchText, setSearchText] = useState(q);
 
   const focus = useCallback(() => {
     if (searchRef.current) {
       searchRef.current.focus();
     }
   }, [searchRef]);
+
+  useEffect(() => {
+    if (q) {
+      setSearchText(q);
+    }
+  }, [q]);
 
   return (
     <header className={styles.Header}>
@@ -55,9 +66,10 @@ export function Header({ app }: { app: AppMeta }): JSX.Element {
             <div className={styles.Search_Input}>
               <input
                 ref={searchRef}
-                v-model="searchText"
                 name="q"
                 type="search"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
                 placeholder="Search"
               />
             </div>

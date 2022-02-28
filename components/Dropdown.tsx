@@ -68,7 +68,10 @@ export function Dropdown({
       {isOpen && (
         <div className={styles.Dropdown_List}>
           {categoriesWithAll.map((category) => (
-            <Link href={`/category/${category.slug}`} key={category._id}>
+            <Link
+              href={category.slug ? `/category/${category.slug}` : "/"}
+              key={category._id}
+            >
               <a href="#" className={styles.Dropdown_Item}>
                 {category.name}
               </a>
