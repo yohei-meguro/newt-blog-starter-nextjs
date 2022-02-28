@@ -14,11 +14,15 @@ export function Home({
   categories,
   articles,
   total,
+  page = 1,
+  categorySlug = "",
 }: {
   app: AppMeta;
   categories: (Content & Category)[];
   articles: (Content & Article)[];
   total: number;
+  page?: number;
+  categorySlug?: string;
 }) {
   return (
     <Layout app={app}>
@@ -29,13 +33,17 @@ export function Home({
       </Head>
       {app.cover?.value && <Cover app={app} />}
       <div className={styles.Articles}>
-        <Dropdown categories={categories} />
+        <Dropdown categories={categories} selected={categorySlug} />
         <div className={styles.Inner}>
           {articles.map((article) => (
             <ArticleCard article={article} key={article._id} />
           ))}
         </div>
-        <Pagination total={total} current={1} />
+        <Pagination
+          total={total}
+          current={page}
+          basePath={categorySlug ? `/category/${categorySlug}` : ``}
+        />
       </div>
     </Layout>
   );

@@ -1,4 +1,4 @@
-import { createClient } from "newt-client-js";
+import { Content, createClient } from "newt-client-js";
 import { Article } from "../types/article";
 import { Category } from "../types/category";
 
@@ -16,7 +16,7 @@ export const fetchApp = async () => {
 };
 
 export const fetchCategories = async () => {
-  const { items } = await client.getContents<Category>({
+  const { items } = await client.getContents<Content & Category>({
     appUid: process.env.NEXT_PUBLIC_NEWT_APP_UID,
     modelUid: process.env.NEXT_PUBLIC_NEWT_CATEGORY_MODEL_UID,
     query: {
@@ -31,8 +31,9 @@ export const fetchArticles = async (options?: {
   search?: string;
   category?: string;
   page?: number;
+  limit?: number;
 }) => {
-  const { query, search, category, page } = options || {};
+  const { query, search, category, page, limit } = options || {};
   const _query = {
     ...(query || {}),
   };
@@ -54,10 +55,10 @@ export const fetchArticles = async (options?: {
     _query.categories = category;
   }
   const _page = page || 1;
-  const _limit = Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10;
+  const _limit = limit || Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10;
   const _skip = (_page - 1) * _limit;
 
-  const { items, total } = await client.getContents<Article>({
+  const { items, total } = await client.getContents<Content & Article>({
     appUid: process.env.NEXT_PUBLIC_NEWT_APP_UID,
     modelUid: process.env.NEXT_PUBLIC_NEWT_ARTICLE_MODEL_UID,
     query: {
@@ -71,4 +72,32 @@ export const fetchArticles = async (options?: {
     articles: items,
     total,
   };
+};
+
+export const getPages = async (options?: { category?: string }) => {
+  const { total } = await fetchArticles(options);
+  const pages = Array(
+    Math.ceil(total / Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10)
+  )
+    .fill(true)
+    .map((value, index) => ({
+      number: index + 1,
+    }));
+  return pages;
+};
+
+export const fetchCurrentArticle = async (options: { slug: string }) => {
+  const { slug } = options;
+  if (!slug) return null;
+  const { items } = await client.getContents({
+    appUid: process.env.NEXT_PUBLIC_NEWT_APP_UID,
+    modelUid: process.env.NEXT_PUBLIC_NEWT_ARTICLE_MODEL_UID,
+    query: {
+      depth: 2,
+      limit: 1,
+      slug,
+      body: { fmt: "text" },
+    },
+  });
+  return items[0] || null;
 };
