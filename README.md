@@ -1,34 +1,106 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# newt-blog-starter-nextjs
 
-## Getting Started
+[Newt](https://www.newt.so/) を利用した1カラムのシンプルなブログ
+<br />技術構成： Next.js, TypeScript
 
-First, run the development server:
+## 開発をはじめる
+
+### Step1: Newtプロジェクトをセットアップ
+
+1. プロジェクトを作成します
+    - プロジェクトUIDを控えておきましょう。プロジェクトUIDは 管理画面URL（ `https://app.newt.so/{プロジェクトUID}` ） もしくは プロジェクト設定 > 一般 から確認できます。
+2. Appを作成します
+    - Appテンプレートから作成する場合、**Blog**を選択し「このテンプレートを追加」をクリックしてください。
+    - スクラッチで作成する場合は、App名とAppUIDを設定して次のステップに進みます。
+    - AppUIDを控えておきましょう。AppUIDは管理画面URL（ `https://app.newt.so/{プロジェクトUID}/app/{AppUID}` ） または App設定 > 一般 から確認できます。
+3. App設定から、Articleモデル, Categoryモデル, Authorモデルを作成します
+    - Appテンプレートから作成した場合、すでにモデルが作成されているためこのステップは飛ばします
+    - スクラッチで作成した場合は、[Newtプロジェクトの構成](#Newtプロジェクトの構成)に従ってAppとモデルを作成します
+4. プロジェクト設定 > APIキー からCDN APIトークンを作成します
+    - プロジェクト設定 > APIキー よりCDN APIトークンを作成します
+    - 複製マークをクリックしてトークンをコピーしましょう
+
+### Step2: .envファイルを書き換える
+
+1. Step1で取得したプロジェクトUID, AppUID, CDN APIトークンで環境変数を書き換えます
+
+.envファイルのプロジェクトUID, AppUID, CDN APIトークンを実際の値で書き換えます
+```conf
+NEXT_PUBLIC_NEWT_PROJECT_UID=プロジェクトUID
+NEXT_PUBLIC_NEWT_APP_UID=AppUID
+NEXT_PUBLIC_NEWT_API_TOKEN=CDN APIトークン
+NEXT_PUBLIC_NEWT_API_TYPE=cdn
+NEXT_PUBLIC_NEWT_ARTICLE_MODEL_UID=article
+NEXT_PUBLIC_NEWT_CATEGORY_MODEL_UID=category
+NEXT_PUBLIC_PAGE_LIMIT=12
+```
+Next.jsにおける環境変数の扱いについては、[公式ドキュメント](https://nextjs.org/docs/basic-features/environment-variables)を参照してください。
+
+### Step3: devサーバーを起動する
+
+Yarnを使う
 
 ```bash
-npm run dev
-# or
-yarn dev
+# 依存パッケージをインストール
+$ yarn install
+
+# localhost:3000でdevサーバーを起動
+$ yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+NPMを使う
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+# 依存パッケージをインストール
+$ npm install
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+# localhost:3000でdevサーバーを起動
+$ npm run dev
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Step4: Staticなサイトを生成して起動
 
-## Learn More
+```bash
+# Staticなサイトを生成（SSG）
+$ yarn build
 
-To learn more about Next.js, take a look at the following resources:
+# サーバーを起動
+$ yarn start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Newtプロジェクトの構成
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+`Blog` appの中にArticle, Category, Authorの3つのモデルを作ります。
 
-## Deploy on Vercel
+| App名（任意） | モデル名（モデルUID） |
+| --- | --- |
+| Blog | Article (`article`) |
+|  | Category (`category`) |
+|  | Author (`author`) |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Article（`uid: article`）モデル
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| フィールドID | フィールド名 | フィールドID	フィールド名 | フィールドID	フィールド名 |
+| --- | --- | --- | --- |
+| title | タイトル | テキスト | 必須フィールド, このフィールドをタイトルに使う |
+| slug | スラッグ | テキスト | 必須フィールド |
+| meta | メタ情報 | カスタムフィールド | |
+| coverImage | カバー画像 | 画像 |  |
+| body | 本文 | Markdown or リッチテキスト |  |
+| category | カテゴリ | 参照（Categoryモデル） | 複数値 |
+| author | 著者 | 参照（Authorモデル） |  |
+
+### Category（`uid: category`）モデル
+
+| フィールドID | フィールド名 | フィールドID	フィールド名 | フィールドID	フィールド名 |
+| --- | --- | --- | --- |
+| name | 名前 | テキスト | 必須フィールド, このフィールドをタイトルに使う |
+| slug | スラッグ | テキスト | 必須フィールド |
+
+### Author（`uid: author`）モデル
+
+| フィールドID | フィールド名 | フィールドID	フィールド名 | フィールドID	フィールド名 |
+| --- | --- | --- | --- |
+| fullName | 名前 | テキスト | 必須フィールド, このフィールドをタイトルに使う |
+| profileImage | スラッグ | 画像 |  |
+| introduction | 自己紹介 | Markdown or リッチテキスト |  |
