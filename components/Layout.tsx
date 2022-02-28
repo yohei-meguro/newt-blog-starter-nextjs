@@ -1,18 +1,18 @@
 import { AppMeta } from "newt-client-js";
 import { PropsWithChildren } from "react";
 import styles from "../styles/Layout.module.css";
-import Footer from "./Footer";
-import Header from "./Header";
+import { Footer } from "./Footer";
+import { Header } from "./Header";
 
-export default ({
+export function Layout({
   app,
   children,
-}: PropsWithChildren<{ app: AppMeta }>): JSX.Element => {
+}: PropsWithChildren<{ app: AppMeta }>): JSX.Element {
   return (
     <div className={styles.Wrapper}>
       <Header app={app} />
-      {children}
+      <main className="Container">{children}</main>
       <Footer app={app} />
     </div>
   );
-};
+}

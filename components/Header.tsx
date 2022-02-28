@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useCallback, useRef } from "react";
 import styles from "../styles/Header.module.css";
 
-export default ({ app }: { app: AppMeta }): JSX.Element => {
+export function Header({ app }: { app: AppMeta }): JSX.Element {
   const searchRef = useRef<HTMLInputElement>();
 
   const focus = useCallback(() => {
@@ -66,4 +66,4 @@ export default ({ app }: { app: AppMeta }): JSX.Element => {
       </div>
     </header>
   );
-};
+}

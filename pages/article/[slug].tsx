@@ -1,6 +1,6 @@
 import { AppMeta } from "newt-client-js";
 import Head from "next/head";
-import Layout from "../../components/Layout";
+import { Layout } from "../../components/Layout";
 import { fetchApp } from "../../lib/api";
 
 export default function Article({ app }: { app: AppMeta }) {
