@@ -16,7 +16,7 @@ export function Header({ app }: { app: AppMeta }): JSX.Element {
     <header className={styles.Header}>
       <div className={styles.Header_Inner}>
         <Link href="/">
-          <div className={styles.Title}>
+          <a href="#" className={styles.Title}>
             {app.icon?.type === "emoji" && (
               <span className={styles.Title_Icon}>{app.icon.value}</span>
             )}
@@ -26,7 +26,7 @@ export function Header({ app }: { app: AppMeta }): JSX.Element {
               </span>
             )}
             <div className={styles.Title_Text}>{app.name || app.uid || ""}</div>
-          </div>
+          </a>
         </Link>
         <div className={styles.Link}>
           <a

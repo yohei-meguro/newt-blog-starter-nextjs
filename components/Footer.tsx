@@ -7,7 +7,7 @@ export function Footer({ app }: { app: AppMeta }) {
     <footer className={styles.Footer}>
       <div className={styles.Footer_Inner}>
         <Link href="/">
-          <div className={styles.SiteName}>
+          <a href="#" className={styles.SiteName}>
             {app.icon?.type === "emoji" && (
               <span className={styles.SiteName_Icon}>{app.icon.value}</span>
             )}
@@ -19,7 +19,7 @@ export function Footer({ app }: { app: AppMeta }) {
             <div className={styles.SiteName_Text}>
               {app.name || app.uid || ""}
             </div>
-          </div>
+          </a>
         </Link>
         <div className={styles.Link}>
           <a

@@ -8,7 +8,7 @@ export function ArticleCard({ article }: { article: Content & Article }) {
   return (
     <article v-if="article" className={styles.Article}>
       <Link href={`/article/${article.slug}`}>
-        <div className={styles.Article_Link}>
+        <a href="#" className={styles.Article_Link}>
           <div className={styles.Article_Eyecatch}>
             {article.coverImage ? (
               <img src={article.coverImage.src} alt="" />
@@ -66,7 +66,7 @@ export function ArticleCard({ article }: { article: Content & Article }) {
               </div>
             </div>
           </div>
-        </div>
+        </a>
       </Link>
     </article>
   );
