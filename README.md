@@ -34,11 +34,11 @@ Newt's starter
     - 複製マークをクリックしてトークンをコピーしましょう
 ### Step2: .envファイルを書き換える
 
-1. Step1で取得したプロジェクトUID, AppUID, CDN APIトークンで環境変数を書き換えます
+1. Step1で取得したスペースUID, AppUID, CDN APIトークンで環境変数を書き換えます
 
-.envファイルのプロジェクトUID, AppUID, CDN APIトークンを実際の値で書き換えます
+.envファイルのスペースUID, AppUID, CDN APIトークンを実際の値で書き換えます
 ```conf
-NEXT_PUBLIC_NEWT_PROJECT_UID=プロジェクトUID
+NEXT_PUBLIC_NEWT_SPACE_UID=スペースID
 NEXT_PUBLIC_NEWT_APP_UID=AppUID
 NEXT_PUBLIC_NEWT_API_TOKEN=CDN APIトークン
 NEXT_PUBLIC_NEWT_API_TYPE=cdn
@@ -80,7 +80,7 @@ $ yarn build
 $ yarn start
 ```
 
-## Newtプロジェクトの構成
+## Newtスペースの構成
 
 `Blog` appの中にArticle, Category, Authorの3つのモデルを作ります。
 
