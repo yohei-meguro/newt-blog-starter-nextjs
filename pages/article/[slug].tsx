@@ -81,7 +81,7 @@ export default function ArticlePage({
         <meta name="description" content={description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <article v-if="currentArticle" className={styles.Article}>
+      <article className={styles.Article}>
         <div className={styles.Article_Header}>
           <h1 className={styles.Article_Title}>
             {currentArticle?.title || ""}

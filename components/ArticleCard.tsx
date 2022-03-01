@@ -6,7 +6,7 @@ import { Article } from "../types/article";
 
 export function ArticleCard({ article }: { article: Content & Article }) {
   return (
-    <article v-if="article" className={styles.Article}>
+    <article className={styles.Article}>
       <Link href={`/article/${article.slug}`}>
         <a href="#" className={styles.Article_Link}>
           <div className={styles.Article_Eyecatch}>
