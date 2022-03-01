@@ -1,20 +1,15 @@
-import { AppMeta, Content } from "newt-client-js";
-import { Home } from "../../../components/Home";
+import { Home, HomeProps } from "../../../components/Home";
 import { fetchApp, fetchArticles, fetchCategories } from "../../../lib/api";
-import { Article } from "../../../types/article";
-import { Category } from "../../../types/category";
 
-export default function CategoryPage(options: {
-  app: AppMeta;
-  categories: (Content & Category)[];
-  articles: (Content & Article)[];
-  total: number;
-  categorySlug: string;
-}) {
-  return <Home {...options} />;
+export default function CategoryPage(props: HomeProps) {
+  return <Home {...props} />;
 }
 
-export async function getStaticProps({ params }: { params: { slug: string } }) {
+export async function getStaticProps({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<{ props: HomeProps }> {
   const { slug } = params;
   const app = await fetchApp();
   const categories = await fetchCategories();

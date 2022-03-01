@@ -9,6 +9,15 @@ import { ArticleCard } from "../components/ArticleCard";
 import { Article } from "../types/article";
 import { Pagination } from "../components/Pagination";
 
+export interface HomeProps {
+  app: AppMeta;
+  categories: (Content & Category)[];
+  articles: (Content & Article)[];
+  total: number;
+  page?: number;
+  categorySlug?: string;
+}
+
 export function Home({
   app,
   categories,
@@ -16,14 +25,7 @@ export function Home({
   total,
   page = 1,
   categorySlug = "",
-}: {
-  app: AppMeta;
-  categories: (Content & Category)[];
-  articles: (Content & Article)[];
-  total: number;
-  page?: number;
-  categorySlug?: string;
-}) {
+}: HomeProps) {
   return (
     <Layout app={app}>
       <Head>
