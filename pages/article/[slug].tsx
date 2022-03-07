@@ -66,15 +66,15 @@ export default function ArticlePage({
   }, [currentArticle?.body]);
 
   const authorIntroduction = useMemo(() => {
-    if (currentArticle?.author?.introduction) {
+    if (currentArticle?.author?.biography) {
       return {
-        __html: currentArticle.author.introduction,
+        __html: currentArticle.author.biography,
       };
     }
     return {
       __html: "",
     };
-  }, [currentArticle?.author?.introduction]);
+  }, [currentArticle?.author?.biography]);
 
   return (
     <Layout app={app}>

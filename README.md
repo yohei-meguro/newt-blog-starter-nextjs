@@ -114,5 +114,13 @@ $ yarn start
 | フィールドID | フィールド名 | フィールドタイプ | オプション |
 | --- | --- | --- | --- |
 | fullName | 名前 | テキスト | 必須フィールド, このフィールドをタイトルに使う |
-| profileImage | スラッグ | 画像 |  |
-| introduction | 自己紹介 | Markdown or リッチテキスト |  |
+| profileImage | プロフィール画像 | 画像 |  |
+| biography | 自己紹介 | Markdown or リッチテキスト |  |
+
+### メタ情報`id: META`）カスタムフィールドタイプ
+
+| フィールドID | フィールド名 | フィールドタイプ | オプション |
+| --- | --- | --- | --- |
+| title | Title | テキスト | |
+| description | Description | テキスト | |
+| ogImage | OG画像 | 画像 |  |
