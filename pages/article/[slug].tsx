@@ -42,7 +42,17 @@ export default function ArticlePage({
       }).slice(0, 200);
     }
     return "";
-  }, [app, meta, currentArticle?.body]);
+  }, [meta, currentArticle?.body]);
+
+  const ogImage = useMemo(() => {
+    if (meta?.ogImage) {
+      return meta.ogImage.src;
+    }
+    if (currentArticle?.author?.profileImage) {
+      return currentArticle.author.profileImage.src;
+    }
+    return "";
+  }, [meta?.ogImage, currentArticle?.author]);
 
   const authorName = useMemo(() => {
     return currentArticle?.author?.fullName || "NO NAME";
@@ -81,6 +91,7 @@ export default function ArticlePage({
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
+        <meta name="og:image" content={ogImage} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <article className={styles.Article}>
