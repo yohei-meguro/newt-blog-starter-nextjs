@@ -128,3 +128,4 @@ $ yarn start
 ## License
 
 [MIT License](https://github.com/Newt-Inc/newt-blog-starter-nextjs/blob/main/LICENSE)
+
